@@ -1,0 +1,57 @@
+import requests
+
+url_get = 'https://jsonplaceholder.typicode.com/posts'
+
+# Get
+response_get = requests.get(url_get)
+
+if response_get.status_code == 200:
+
+    posts = response_get.json()
+    
+    
+    print("id:")
+    for post in posts:
+        if post.get('userId', 0) % 2 == 0:
+            print(post)
+else:
+    print(f"Error: {response_get.status_code}")
+
+url_post = 'https://jsonplaceholder.typicode.com/posts'
+
+data_post = {
+    'title': 'testPost',
+    'body': 'BodyTestPost',
+    'userId': 1
+}
+
+# Post
+response_post = requests.post(url_post, json=data_post)
+
+if response_post.status_code == 201:
+    print("\nCreated Post:")
+    print(response_post.json())
+else:
+    print(f"\nError: {response_post.status_code}")
+
+url_put = 'https://jsonplaceholder.typicode.com/posts'
+
+data_put = {
+    'title': 'NewPost',
+    'body': 'BodyNewPost',
+    'userId': 1,
+}
+# Put
+response_put = requests.put(url_put, json=data_put)
+
+if response_put.status_code == 200:
+    print("\nUpdated Post :")
+    print(data_put)
+else:
+    print(f"\nError: {response_put.status_code}")
+    print("Updated Post:")
+    print({
+        'title': 'Post',
+        'body': 'BodyPost',
+        'userId': 1,
+    })
